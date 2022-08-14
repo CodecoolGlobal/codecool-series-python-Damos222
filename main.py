@@ -17,8 +17,15 @@ def design():
     return render_template('design.html')
 
 
+@app.route('/shows/most-rated/<int:page>')
+def most_rated(page):
+    shows = queries.get_highest_rated_shows(page)
+    page_count = queries.get_shows_page_count()
+    return render_template('highest-rated.html', shows=shows, page=page, page_count=page_count)
+
+
 def main():
-    app.run(debug=False)
+    app.run(debug=True)
 
 
 if __name__ == '__main__':

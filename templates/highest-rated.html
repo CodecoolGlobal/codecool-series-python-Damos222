@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block page_specific_styling %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/pagination.css') }}">
+{% endblock %}
+
+{% block title %}
+    Shows
+{% endblock %}
+
+{% block headline %}
+    Shows
+{% endblock %}
+
+{% block card1 %}
+    <div class="card">
+        <table>
+            <thead>
+            <tr>
+                <td>Title</td>
+                <td>Year</td>
+                <td>Runtime (min)</td>
+                <td>Rating</td>
+                <td>Genres</td>
+                <td>Trailer</td>
+                <td>Homepage</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for show in shows %}
+                <tr>
+                    <td><a href="/show/{{ show.id }}">{{ show.title }}</a></td>
+                    <td>{{ show.year }}</td>
+                    <td>{{ show.runtime }}</td>
+                    <td>{{ show.rating }}</td>
+                    <td>{{ show.genres }}</td>
+                    {% if show.trailer is not none %}
+                        <td><a href="{{ show.trailer }}">Trailer</a></td>
+                    {% else %}
+                        <td>No URL</td>
+                    {% endif %}
+                    {% if show.homepage is not none %}
+                        <td><a href="{{ show.homepage }}">Homepage</a></td>
+                    {% else %}
+                        <td>No URL</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block card2 %}
+    <div class="pagination">
+        {% if page in [1, 2] %}
+            {% set sequence = [1, 2, 3, 4, 5] %}
+        {% elif page in [page_count, page_count - 1] %}
+            {% set sequence = [page_count - 4, page_count - 3, page_count - 2, page_count - 1, page_count] %}
+        {% else %}
+            {% set sequence = [page - 2, page - 1, page, page + 1, page + 2] %}
+        {% endif %}
+        <a href="/shows/most-rated/{{ page - 1 }}"><<</a>
+        {% for number in sequence %}
+            {% if number == page %}
+                <a class="active" href="/shows/most-rated/{{ number }}">{{ number }}</a>
+            {% else %}
+                <a href="/shows/most-rated/{{ number }}">{{ number }}</a>
+            {% endif %}
+        {% endfor %}
+        <a href="/shows/most-rated/{{ page + 1 }}">>></a>
+    </div>
+{% endblock %}
