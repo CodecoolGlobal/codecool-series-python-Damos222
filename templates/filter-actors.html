@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Filter Actors
+{% endblock %}
+
+{% block headline %}
+    Filter Actors
+{% endblock %}
+
+{% block card1 %}
+<div class="card">
+            <form>
+                <p class="form-element">
+                    <label class="form-element-label" for="genre-select">Genre:</label>
+                    <select name="genre" id="genre-select" value="Action">
+                        {% for genre in genres %}
+                        <option value="{{ genre.name }}">{{ genre.name }}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+                <p class="form-element">
+                    <label class="form-element-label" for="text-field">Name:</label>
+                    <input type="text" name="name" id="text-field">
+                </p>
+            </form>
+        </div>
+{% endblock %}
+
+{% block card2 %}
+    <div class="card">
+    <h2>Actors</h2>
+    <ul id="actors-list">
+    </ul>
+    </div>
+{% endblock %}
+
+{% block custom_js %}
+<script src="../static/js/filter-actors.js"></script>
+{% endblock %}

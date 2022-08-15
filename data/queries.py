@@ -130,3 +130,28 @@ def get_shows_by_episode_count(sort_method):
     limit 10;"""
     data = {'sort_method': AsIs(sort_method)}
     return data_manager.execute_select(query, data)
+
+
+def get_all_genres():
+    query = """select name from genres"""
+    return data_manager.execute_select(query)
+
+
+def get_actors_by_search_params(genre, name):
+    query = """select distinct a.name from genres g
+    left join show_genres sg on g.id = sg.genre_id
+    left join shows s on s.id = sg.show_id
+    left join show_characters sc on sg.show_id = sc.show_id
+    left join actors a on a.id = sc.actor_id
+    where g.name = %(genre)s and lower(a.name) like %(name)s
+    limit 20;"""
+    data = {"genre": genre, 'name': name + '%'}
+    return data_manager.execute_select(query, data)
+
+
+def get_actors_by_birthday():
+    query = """
+    select name, birthday from actors
+    order by birthday
+    limit 100;"""
+    return data_manager.execute_select(query)

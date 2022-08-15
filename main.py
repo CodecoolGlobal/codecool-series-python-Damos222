@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, jsonify
+from flask import Flask, render_template, url_for, redirect, jsonify, request
 from data import queries
 import math
 from dotenv import load_dotenv
@@ -9,7 +9,7 @@ app = Flask('codecool_series')
 @app.route('/')
 def index():
     shows = queries.get_shows()
-    return render_template('index.html', shows=shows)
+    return render_template('new-index.html', shows=shows)
 
 
 @app.route('/design')
@@ -78,6 +78,29 @@ def ordered_shows(sort_method):
     for show in shows:
         show['rating'] = int(show['rating'])
     return render_template('ordered-shows.html', shows=shows, sort_method=sort_method)
+
+
+@app.route('/filter-actors')
+def filter_actors():
+    genres = queries.get_all_genres()
+    return render_template('filter-actors.html', genres=genres)
+
+
+@app.route('/api/filter-actors', methods=['POST'])
+def get_actors_by_search_params():
+    genre = request.form.get('genre')
+    name = request.form.get('name')
+    print(genre, name)
+    actors = queries.get_actors_by_search_params(genre, name)
+    return jsonify(actors)
+
+
+@app.route('/birthday-actors')
+def actors_by_birthday():
+    actors = queries.get_actors_by_birthday()
+    for actor in actors:
+        actor['birthday_day'] = actor['birthday'].day
+    return render_template('birthday-actors.html', actors=actors)
 
 
 def main():

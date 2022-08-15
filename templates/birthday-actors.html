@@ -1,0 +1,26 @@
+{% extends 'base.html'%}
+
+{% block title %}
+    Actors by Birthday
+{% endblock %}
+
+{% block headline %}
+    Actors by Birthday
+{% endblock %}
+
+{% block page_specific_styling %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/tooltip.css') }}">
+{% endblock %}
+
+{% block card1 %}
+    <div class="card">
+        <ul>
+            {% for actor in actors %}
+                <li class="name" data-birthday_day="{{ actor.birthday_day }}" data-birthday="{{ actor.birthday }}">{{actor.name}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block custom_js %}
+{% endblock %}

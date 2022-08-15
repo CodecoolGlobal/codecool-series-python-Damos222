@@ -1,0 +1,52 @@
+*, *::before, *::after {
+  box-sizing: border-box
+}
+
+.name {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  width: fit-content;
+}
+
+.name::before,
+.name::after {
+  --scale: 0;
+  --arrow-size: 20px;
+  --tooltip-color: grey;
+
+  opacity: 0.95;
+  position: absolute;
+  top: -.25rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(var(--translate-y, 0)) scale(var(--scale));
+  transition: 150ms transform;
+  transform-origin: bottom center;
+}
+
+.name::before {
+  --translate-y: calc(-100% - var(--arrow-size));
+
+  content: attr(data-birthday);
+  color: white;
+  padding: .5rem;
+  border-radius: .3rem;
+  text-align: center;
+  width: max-content;
+  max-width: 150%;
+  background: var(--tooltip-color);
+}
+
+.name:hover::before,
+.name:hover::after {
+  --scale: 1;
+}
+
+.name::after {
+  --translate-y: calc(-1 * var(--arrow-size));
+
+  content: '';
+  border: var(--arrow-size) solid transparent;
+  border-top-color: var(--tooltip-color);
+  transform-origin: top center;
+}
