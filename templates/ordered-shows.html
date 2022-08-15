@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Shows sorted by episode count
+{% endblock %}
+
+{% block headline %}
+    Shows sorted by episode count
+{% endblock %}
+
+
+{% block card2 %}
+    <div class="card">
+        <table>
+            <thead>
+            <tr>
+                <td><a href="/ordered-shows/{% if sort_method == 'asc' %}desc{% else %}asc{% endif %}">Name</a></td>
+                <td>rating</td>
+                <td>episodes</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for show in shows %}
+                <tr>
+                    <td>{{ show.title }}</td>
+                    <td>{{ show.rating * '*' }}</td>
+                    <td>{{ show.episode_count }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

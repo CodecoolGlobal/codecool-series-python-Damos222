@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ show.title }}
+{% endblock %}
+{% block page_specific_styling %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/detailed-view.css') }}">
+{% endblock %}
+{% block headline %}
+    {{ show.title }}
+{% endblock %}
+
+{% block card1 %}
+    <div class="card detailed-view">
+        <div class="row">
+            <div class="col col-twothird">
+                <h2>{{ show.title }}</h2>
+                <p class="small grayed">{{ show.runtime }} <span class="separator">|</span> {{ show.genres }} <span
+                        class="separator">|</span> {{ show.year }} <span class="separator">|</span> {{ show.rating }} ☆ </p>
+                <p>{{ show.overview }}</p>
+                <div>
+                    <p><b>Stars:</b>
+                    <ul class="actors-list">
+                        {% for i in range(actors_count) %}
+                            <li class="actor" data-link="/actors/{{ show['actor_ids'][i] }}">{{ show['actors'][i] }}</li>
+                        {% endfor %}
+                    </ul>
+                    </p>
+                </div>
+            </div>
+            <div class="trailer col col-third" id="video-container">
+                {{ show.trailer }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block card2 %}
+    <div class="card">
+        <h2>Seasons</h2>
+        <table>
+            <thead>
+            <tr>
+                <td></td>
+                <td>Title</td>
+                <td>Overview</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for season in seasons %}
+                <tr>
+                    <td>{{ season.season_number }}</td>
+                    <td>{{ season.title }}</td>
+                    <td>{{ season.overview }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block custom_js %}
+    <script src="../static/js/embed-youtube.js"></script>
+{% endblock %}

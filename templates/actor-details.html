@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ actor_info['name'] }}
+{% endblock %}
+
+{% block card1 %}
+    <div class="card detailed-view">
+    <div class="row">
+        <div class="col col-twothird">
+            <h2>{{ actor_info['name'] }}</h2>
+            <p class="small grayed">Birthday: {{ actor_info['birthday'] }}
+                {% if actor_info['death'] is not none %}
+                    <span class="separator">|</span> Death: {{ actor_info['death'] }}
+                {% endif %}
+            </p>
+            <p>{{ actor_info['biography']}}</p>
+            <h3>Roles</h3>
+            <ul>
+                {% for item in actor_shows %}
+                    <li>{{ item['character_name'] }} in {{ item['title']}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+
