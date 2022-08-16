@@ -21,13 +21,16 @@ header > * {
     padding: 0 6px;
 }
 
-a#header-title:hover {
+#header-title > a:hover,
+#header-title > a:link,
+#header-title > a:visited,
+#header-title > a:active {
+    text-underline: none;
     text-decoration: none;
     color: #fff;
 }
 
 #header-auth {
     float: right;
-
     margin: 15px;
 }

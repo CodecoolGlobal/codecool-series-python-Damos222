@@ -34,9 +34,13 @@
 <body>
 <div id="body-wrapper">
     <header class="clearfix">
-        <img id="header-logo" src="{{ url_for('static', filename='assets/codecool-logo.png') }}" alt="Codecool Logo">
-        <span id="header-title" class="title">Codecool Series DB</span>
-        <a href="/shows">Shows</a>
+        <a href="/">
+            <img id="header-logo" src="{{ url_for('static', filename='assets/codecool-logo.png') }}" alt="Codecool Logo">
+        </a>
+
+            <span id="header-title" class="title"><a href="/">Codecool Series DB</a></span>
+
+
         <div id="header-auth">
             <button type="button" id="bt-register">Register</button>
             <button type="button" id="bt-login">Login</button>

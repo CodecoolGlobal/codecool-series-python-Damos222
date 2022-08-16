@@ -6,17 +6,6 @@ def get_shows():
     return data_manager.execute_select('SELECT id, title FROM shows;')
 
 
-# def get_highest_rated_shows():
-#     query = """SELECT title, year, runtime, ROUND(rating, 1) as rating, string_agg(genres.name, ', ') as genres, trailer, homepage from genres
-#     JOIN show_genres on genres.id = show_genres.genre_id
-#     JOIN shows on show_genres.show_id = shows.id
-#     GROUP BY shows.title
-#     ORDER BY rating DESC
-#     LIMIT 15
-#     """
-#     return data_manager.execute_select(query)
-
-
 def get_highest_rated_shows(page, sort_method, sort_direction):
     query = """
     SELECT shows.id, shows.title as title, year, runtime, ROUND(rating, 1) as rating, subquery.genres as genres,
