@@ -158,37 +158,3 @@ def get_genre_data(genre_id):
     data = {'genre_id': genre_id}
 
     return data_manager.execute_select(query, data)
-
-
-def get_most_common_character_names():
-    query = """
-    select character_name as name, array_agg(s.title) as shows, count(show_characters.id) as character_count from show_characters
-    left join shows s on s.id = show_characters.show_id
-    where character_name not in ('', 'Herself', 'Himself', 'Himself - Host', 'Narrator', 'Himself - Judge', 'Herself - Judge', 'Herself - Host', 'Host', 'Various Characters')
-    group by character_name
-    order by count(show_characters.id) desc"""
-    return data_manager.execute_select(query)
-
-
-def get_shows_with_5_or_more_genres():
-    query = """
-    select s.title, count(sg.show_id), s.id as show_id from shows s
-    left join show_genres sg on s.id = sg.show_id
-    group by s.id
-    having count(sg.show_id) > 5
-    order by s.year desc"""
-    return data_manager.execute_select(query)
-
-
-def get_show_info(show_id):
-    query = """
-    select extract(year from shows.year) as year,
-       (extract(year from shows.year) + 25) as anniversary_year,
-       count(case when season_number = 0 then null else seasons.id end) as seasons_count,
-       round(shows.rating) as rating from shows
-    left join seasons on shows.id = seasons.show_id
-    where shows.id = %(show_id)s
-    group by shows.id"""
-    data = {'show_id': show_id}
-    return data_manager.execute_select(query, data)
-
