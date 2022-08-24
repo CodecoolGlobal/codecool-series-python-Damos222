@@ -115,6 +115,25 @@ def get_genres_data(genre_id):
     return jsonify(data)
 
 
+@app.route('/most-common-character-names')
+def most_common_character_names():
+    character_names = queries.get_most_common_character_names()
+    return render_template('most-common-character-names.html', character_names=character_names)
+
+
+@app.route('/shows-with-5-or-more-genres')
+def shows_with_5_or_more_genres():
+    shows = queries.get_shows_with_5_or_more_genres()
+    return render_template('shows-with-5-or-more-genres.html', shows=shows)
+
+
+@app.route('/api/shows-with-5-or-more-genres/<int:show_id>')
+def get_shows_with_5_or_more_genres_details(show_id):
+    show_info = queries.get_show_info(show_id)
+    return jsonify(show_info)
+
+
+
 def main():
     app.run(debug=True)
 

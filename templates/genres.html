@@ -5,27 +5,28 @@
 {% endblock %}
 
 {% block headline %}
-    Filter Actors
+    Genres
 {% endblock %}
 
 {% block card1 %}
-<div class="card">
+    <div class="card">
     {% for genre in genres %}
-        <span data-link="/api/genre/{{ genre.id }}">{{ genre.name }}   ||   </span>
+        <span data-link="/api/genre/{{ genre.id }}" data-genre-name="{{ genre.name }}">{{ genre.name }}   ||   </span>
     {% endfor %}
+    </div>
 {% endblock %}
 
 {% block card2 %}
     <div class="card">
         <table>
             <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Rating</th>
-                    <th>Year</th>
-                    <th>Genre</th>
-                    <th>Actor Count</th>
-                </tr>
+            <tr>
+                <th>Title</th>
+                <th>Rating</th>
+                <th>Year</th>
+                <th>Genre</th>
+                <th>Actor Count</th>
+            </tr>
             </thead>
             <tbody>
             </tbody>
@@ -34,5 +35,5 @@
 {% endblock %}
 
 {% block custom_js %}
-<script src="../static/js/genres.js"></script>
+    <script src="../static/js/genres.js"></script>
 {% endblock %}
