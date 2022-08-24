@@ -122,7 +122,7 @@ def get_shows_by_episode_count(sort_method):
 
 
 def get_all_genres():
-    query = """select name from genres"""
+    query = """select name, id from genres"""
     return data_manager.execute_select(query)
 
 
@@ -144,3 +144,17 @@ def get_actors_by_birthday():
     order by birthday
     limit 100;"""
     return data_manager.execute_select(query)
+
+
+def get_genre_data(genre_id):
+    query = """
+    select shows.title, count(actors.id) as actors_count, shows.rating, shows.year from show_genres
+    left join shows on show_genres.show_id = shows.id
+    left join show_characters on shows.id = show_characters.show_id
+    left join actors on show_characters.actor_id = actors.id
+    where show_genres.genre_id = %(genre_id)s 
+    group by shows.id
+    having actors_count > 20"""
+    data = {'genre_id': genre_id}
+
+    return data_manager.execute_select(query, data)

@@ -103,6 +103,18 @@ def actors_by_birthday():
     return render_template('birthday-actors.html', actors=actors)
 
 
+@app.route('/genres')
+def genres():
+    genres = queries.get_all_genres()
+    return render_template('genres.html', genres=genres)
+
+
+@app.route('/api/genre/<genre_id>')
+def get_genres_data(genre_id):
+    data = queries.get_genre_data(genre_id)
+    return jsonify(data)
+
+
 def main():
     app.run(debug=True)
 

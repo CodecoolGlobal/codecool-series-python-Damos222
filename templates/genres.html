@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    genres
+{% endblock %}
+
+{% block headline %}
+    Filter Actors
+{% endblock %}
+
+{% block card1 %}
+<div class="card">
+    {% for genre in genres %}
+        <span data-link="/api/genre/{{ genre.id }}">{{ genre.name }}   ||   </span>
+    {% endfor %}
+{% endblock %}
+
+{% block card2 %}
+    <div class="card">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Rating</th>
+                    <th>Year</th>
+                    <th>Genre</th>
+                    <th>Actor Count</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block custom_js %}
+<script src="../static/js/genres.js"></script>
+{% endblock %}
