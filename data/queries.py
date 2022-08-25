@@ -148,7 +148,7 @@ def get_actors_by_birthday():
 
 def get_genre_data(genre_id):
     query = """
-    select shows.title, count(actors.id) as actors_count, shows.rating, shows.year from show_genres
+    select shows.title, count(actors.id) as actors_count, shows.rating, extract(year from shows.year) as year from show_genres
     left join shows on show_genres.show_id = shows.id
     left join show_characters on shows.id = show_characters.show_id
     left join actors on show_characters.actor_id = actors.id

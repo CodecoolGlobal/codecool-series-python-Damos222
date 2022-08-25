@@ -7,6 +7,7 @@ function genreDataGenerator() {
                 .then(json => {
                     console.log(json)
                     const tableBody = document.querySelector('tbody')
+                    tableBody.innerHTML = ''
                     for (let row of json) {
                         let tableRow = document.createElement('tr')
                         tableBody.appendChild(tableRow)
