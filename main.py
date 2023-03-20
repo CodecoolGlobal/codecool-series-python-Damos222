@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 app = Flask('codecool_series')
 
+
 @app.route('/')
 def index():
     shows = queries.get_shows()
